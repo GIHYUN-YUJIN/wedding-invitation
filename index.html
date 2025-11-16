@@ -3,142 +3,267 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>모바일 청첩장</title>
+<title>Mobile Wedding Invitation</title>
+
+<!-- 구글 폰트 -->
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
     body {
         margin: 0;
         padding: 0;
         font-family: "Pretendard", sans-serif;
-        background: #f5f5f5; /* 밝은 회색 */
-        color: #333;
+        background: #f5f5f5 url('https://www.transparenttextures.com/patterns/snow.png'); /* 은은한 패턴 */
         line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
     }
 
     .container {
         max-width: 480px;
         margin: 0 auto;
-        padding-bottom: 80px;
         background: white;
-        box-shadow: 0 0 8px rgba(0,0,0,0.05);
+        box-shadow: 0 0 10px rgba(0,0,0,0.07);
+        border-radius: 14px;
+        overflow: hidden;
     }
 
-    .hero {
-        text-align: center;
-        padding: 40px 20px;
+    .section {
+        padding: 30px 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease;
+    }
+
+    .section.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .hero img {
-        width: 80%;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        width: 100%;
+        border-radius: 0;
     }
 
     .title {
         text-align: center;
-        margin-top: 30px;
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 700;
+        margin-top: 15px;
     }
+
     .subtitle {
         text-align: center;
-        font-size: 16px;
-        opacity: 0.7;
+        font-size: 15px;
+        color: #666;
         margin-top: 5px;
     }
 
-    section {
-        padding: 20px;
-        margin-top: 20px;
-    }
-
     h2 {
+        margin-top: 0;
         text-align: center;
         font-size: 22px;
-        margin-bottom: 10px;
     }
 
     .info-box {
         background: #fff;
         padding: 18px;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         text-align: center;
-        margin-top: 10px;
+        margin-top: 12px;
     }
 
-    .map-box {
-        margin-top: 20px;
-        border-radius: 12px;
+    /* 슬라이더 */
+    .slider {
+        position: relative;
+        width: 100%;
         overflow: hidden;
+        border-radius: 12px;
+        margin-top: 15px;
+    }
+    .slides {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+    .slides img {
+        width: 100%;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+    .slider-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.7);
+        border: none;
+        font-size: 24px;
+        padding: 5px 12px;
+        border-radius: 50%;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* 방명록 */
+    .guestbook-box {
+        background: #fafafa;
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.05);
+    }
+    .guestbook input, .guestbook textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+    .guestbook button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #333;
+        color: white;
+        border-radius: 10px;
+        font-size: 15px;
     }
 
+    .messages {
+        margin-top: 20px;
+    }
+    .message {
+        background: white;
+        border-radius: 10px;
+        padding: 14px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
     footer {
         text-align: center;
-        padding: 30px 0;
-        font-size: 12px;
-        opacity: 0.6;
+        padding: 25px 0;
+        font-size: 13px;
+        color: #777;
     }
 </style>
-
 </head>
+
 <body>
 <div class="container">
 
-    <!-- 메인 이미지 -->
+    <!-- 상단 메인 이미지 -->
     <div class="hero">
-        <img src="https://placehold.co/600x800?text=Main+Photo" alt="메인사진" />
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" />
     </div>
 
-    <!-- 메인 타이틀 -->
-    <div class="title">김OO · 박OO</div>
-    <div class="subtitle">2025년 5월 24일 토요일 오후 2시</div>
-    <div class="subtitle">서울 마리아주 웨딩홀 3층</div>
+    <div class="section">
+        <div class="title">김OO · 박OO</div>
+        <div class="subtitle">2025년 5월 24일 토요일 오후 2시</div>
+        <div class="subtitle">서울 마리아주 웨딩홀 3층</div>
+    </div>
 
     <!-- 인사말 -->
-    <section>
+    <div class="section">
         <h2>초대합니다</h2>
         <div class="info-box">
             서로의 인연이 아름다운 결실을 맺는 날,<br>
             귀한 걸음 하시어 축복해 주시면 감사하겠습니다.
         </div>
-    </section>
+    </div>
 
-    <!-- 일정 안내 -->
-    <section>
+    <!-- 슬라이드 사진 -->
+    <div class="section">
+        <h2>우리의 순간들</h2>
+        <div class="slider">
+            <button class="slider-btn prev">‹</button>
+            <button class="slider-btn next">›</button>
+
+            <div class="slides">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800">
+                <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=800">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=800">
+                <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=800">
+            </div>
+        </div>
+    </div>
+
+    <!-- 예식 안내 -->
+    <div class="section">
         <h2>예식 안내</h2>
         <div class="info-box">
             📅 <b>2025년 5월 24일 토요일</b><br>
             ⏰ <b>오후 2시</b><br>
             📍 <b>마리아주 웨딩홀 3층</b>
         </div>
-    </section>
+    </div>
 
-    <!-- 오시는 길 -->
-    <section>
-        <h2>오시는 길</h2>
-        <div class="map-box">
-            <!-- 네이버 지도/카카오 지도 iframe 위에 올리면 됨 -->
-            <iframe 
-                src="https://map.naver.com/v5/?c=14138829.9647,4517971.2149,15,0,0,0,dh"
-                width="100%" height="280" frameborder="0">
-            </iframe>
+    <!-- 방명록 -->
+    <div class="section">
+        <h2>방명록</h2>
+        <div class="guestbook-box">
+            <div class="guestbook">
+                <input id="nameInput" type="text" placeholder="이름" />
+                <textarea id="msgInput" rows="3" placeholder="메시지를 남겨주세요"></textarea>
+                <button onclick="addMessage()">등록하기</button>
+            </div>
+
+            <div class="messages" id="messagesList"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Contact -->
-    <section>
-        <h2>연락처</h2>
-        <div class="info-box">
-            신랑: <a href="tel:010-0000-0000">010-0000-0000</a><br>
-            신부: <a href="tel:010-0000-0000">010-0000-0000</a>
-        </div>
-    </section>
-
-    <footer>
-        모바일 청첩장
-    </footer>
-
+    <footer>© 모바일 청첩장</footer>
 </div>
+
+<script>
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.2 });
+sections.forEach(sec => observer.observe(sec));
+
+let currentIndex = 0;
+const slides = document.querySelector('.slides');
+const totalSlides = slides.children.length;
+
+function showSlide(i) {
+    currentIndex = (i + totalSlides) % totalSlides;
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+document.querySelector('.prev').onclick = () => showSlide(currentIndex - 1);
+document.querySelector('.next').onclick = () => showSlide(currentIndex + 1);
+
+const messagesList = document.getElementById('messagesList');
+
+function loadMessages() {
+    const saved = JSON.parse(localStorage.getItem('guestbook') || "[]");
+    messagesList.innerHTML = saved.map(m => `
+        <div class="message">
+            <strong>${m.name}</strong><br>
+            ${m.text}
+        </div>
+    `).join('');
+}
+
+function addMessage() {
+    const name = document.getElementById("nameInput").value.trim();
+    const text = document.getElementById("msgInput").value.trim();
+    if (!name || !text) return alert("이름과 메시지를 입력해주세요!");
+
+    const saved = JSON.parse(localStorage.getItem('guestbook') || "[]");
+    saved.push({ name, text });
+    localStorage.setItem('guestbook', JSON.stringify(saved));
+
+    document.getElementById("nameInput").value = "";
+    document.getElementById("msgInput").value = "";
+
+    loadMessages();
+}
+loadMessages();
+</script>
+
 </body>
 </html>
