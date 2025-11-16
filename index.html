@@ -57,3 +57,88 @@
         font-size: 22px;
         margin-bottom: 10px;
     }
+
+    .info-box {
+        background: #fff;
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .map-box {
+        margin-top: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 12px;
+        opacity: 0.6;
+    }
+</style>
+
+</head>
+<body>
+<div class="container">
+
+    <!-- 메인 이미지 -->
+    <div class="hero">
+        <img src="https://placehold.co/600x800?text=Main+Photo" alt="메인사진" />
+    </div>
+
+    <!-- 메인 타이틀 -->
+    <div class="title">김OO · 박OO</div>
+    <div class="subtitle">2025년 5월 24일 토요일 오후 2시</div>
+    <div class="subtitle">서울 마리아주 웨딩홀 3층</div>
+
+    <!-- 인사말 -->
+    <section>
+        <h2>초대합니다</h2>
+        <div class="info-box">
+            서로의 인연이 아름다운 결실을 맺는 날,<br>
+            귀한 걸음 하시어 축복해 주시면 감사하겠습니다.
+        </div>
+    </section>
+
+    <!-- 일정 안내 -->
+    <section>
+        <h2>예식 안내</h2>
+        <div class="info-box">
+            📅 <b>2025년 5월 24일 토요일</b><br>
+            ⏰ <b>오후 2시</b><br>
+            📍 <b>마리아주 웨딩홀 3층</b>
+        </div>
+    </section>
+
+    <!-- 오시는 길 -->
+    <section>
+        <h2>오시는 길</h2>
+        <div class="map-box">
+            <!-- 네이버 지도/카카오 지도 iframe 위에 올리면 됨 -->
+            <iframe 
+                src="https://map.naver.com/v5/?c=14138829.9647,4517971.2149,15,0,0,0,dh"
+                width="100%" height="280" frameborder="0">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+        <h2>연락처</h2>
+        <div class="info-box">
+            신랑: <a href="tel:010-0000-0000">010-0000-0000</a><br>
+            신부: <a href="tel:010-0000-0000">010-0000-0000</a>
+        </div>
+    </section>
+
+    <footer>
+        모바일 청첩장
+    </footer>
+
+</div>
+</body>
+</html>
