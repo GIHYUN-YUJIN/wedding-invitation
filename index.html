@@ -1,269 +1,290 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Mobile Wedding Invitation</title>
-
-<!-- 구글 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Pretendard", sans-serif;
-        background: #f5f5f5 url('https://www.transparenttextures.com/patterns/snow.png'); /* 은은한 패턴 */
-        line-height: 1.6;
-        color: #333;
-        overflow-x: hidden;
-    }
+  :root{--maxw:480px}
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:"Pretendard",system-ui,-apple-system,Segoe UI,Roboto;
+    background:#f5f5f5 url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    color:#222; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:18px auto;padding-bottom:80px}
+  .card{
+    background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 10px 30px rgba(11,11,11,0.06);
+  }
+  .hero img{display:block;width:100%;height:auto}
+  .pad{padding:20px}
+  .title{text-align:center;font-size:26px;font-weight:700;margin-top:6px}
+  .sub{ text-align:center;color:#666;margin-top:6px;font-size:14px }
 
-    .container {
-        max-width: 480px;
-        margin: 0 auto;
-        background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.07);
-        border-radius: 14px;
-        overflow: hidden;
-    }
+  /* section reveal */
+  .section{padding:20px;opacity:0;transform:translateY(18px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
+  .section.visible{opacity:1;transform:none}
 
-    .section {
-        padding: 30px 20px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.8s ease;
-    }
+  /* info box */
+  .info{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);text-align:center}
 
-    .section.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  /* slider */
+  .slider{position:relative;margin-top:14px;border-radius:12px;overflow:hidden}
+  .slides{display:flex;transition:transform .45s cubic-bezier(.2,.9,.2,1);will-change:transform}
+  .slides img{flex:0 0 100%;width:100%;height:280px;object-fit:cover}
+  .btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.8);border:none;padding:8px;border-radius:999px;font-size:20px;line-height:1;cursor:pointer}
+  .prev{left:10px} .next{right:10px}
 
-    .hero img {
-        width: 100%;
-        border-radius: 0;
-    }
+  /* guestbook */
+  .guest{background:#fafafa;padding:14px;border-radius:12px}
+  .guest input,.guest textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #e6e6e6;margin-top:8px;font-size:14px}
+  .guest button{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;background:#111;color:#fff;font-weight:600}
+  .messages{margin-top:12px}
+  .msg{background:#fff;padding:12px;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.04);position:relative}
+  .msg .meta{font-size:13px;color:#666;margin-bottom:6px}
+  .msg .del-btn{position:absolute;right:10px;top:10px;border:none;background:#ff6b6b;color:#fff;padding:6px 8px;border-radius:8px;font-size:13px;cursor:pointer}
 
-    .title {
-        text-align: center;
-        font-size: 28px;
-        font-weight: 700;
-        margin-top: 15px;
-    }
-
-    .subtitle {
-        text-align: center;
-        font-size: 15px;
-        color: #666;
-        margin-top: 5px;
-    }
-
-    h2 {
-        margin-top: 0;
-        text-align: center;
-        font-size: 22px;
-    }
-
-    .info-box {
-        background: #fff;
-        padding: 18px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        text-align: center;
-        margin-top: 12px;
-    }
-
-    /* 슬라이더 */
-    .slider {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 12px;
-        margin-top: 15px;
-    }
-    .slides {
-        display: flex;
-        transition: transform 0.5s ease;
-    }
-    .slides img {
-        width: 100%;
-        border-radius: 12px;
-        flex-shrink: 0;
-    }
-    .slider-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255,255,255,0.7);
-        border: none;
-        font-size: 24px;
-        padding: 5px 12px;
-        border-radius: 50%;
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    /* 방명록 */
-    .guestbook-box {
-        background: #fafafa;
-        padding: 20px;
-        border-radius: 14px;
-        box-shadow: inset 0 0 6px rgba(0,0,0,0.05);
-    }
-    .guestbook input, .guestbook textarea {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-    .guestbook button {
-        margin-top: 15px;
-        width: 100%;
-        padding: 12px;
-        border: none;
-        background: #333;
-        color: white;
-        border-radius: 10px;
-        font-size: 15px;
-    }
-
-    .messages {
-        margin-top: 20px;
-    }
-    .message {
-        background: white;
-        border-radius: 10px;
-        padding: 14px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    footer {
-        text-align: center;
-        padding: 25px 0;
-        font-size: 13px;
-        color: #777;
-    }
+  footer{margin-top:14px;padding:18px;text-align:center;color:#777;font-size:13px}
+  @media(min-width:520px){ body{background:#f5f5f5} .wrap{margin:30px auto} .slides img{height:360px} }
 </style>
 </head>
-
 <body>
-<div class="container">
 
-    <!-- 상단 메인 이미지 -->
+<div class="wrap">
+  <div class="card">
+    <!-- HERO -->
     <div class="hero">
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" />
+      <img id="heroImg" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="hero">
     </div>
 
-    <div class="section">
-        <div class="title">김OO · 박OO</div>
-        <div class="subtitle">2025년 5월 24일 토요일 오후 2시</div>
-        <div class="subtitle">서울 마리아주 웨딩홀 3층</div>
-    </div>
+    <!-- CONTENT -->
+    <div class="pad">
+      <div class="section" id="intro">
+        <div class="title" id="names">김OO · 박OO</div>
+        <div class="sub" id="datetime">2025년 5월 24일 토요일 · 오후 2시</div>
+        <div class="sub" id="place">마리아주 웨딩홀 3층</div>
+      </div>
 
-    <!-- 인사말 -->
-    <div class="section">
-        <h2>초대합니다</h2>
-        <div class="info-box">
-            서로의 인연이 아름다운 결실을 맺는 날,<br>
-            귀한 걸음 하시어 축복해 주시면 감사하겠습니다.
+      <div class="section" id="greet">
+        <h3 style="text-align:center;margin:0 0 8px 0">초대합니다</h3>
+        <div class="info">서로의 인연이 아름다운 결실을 맺는 날, 귀한 걸음 하시어 축복해 주시면 감사하겠습니다.</div>
+      </div>
+
+      <!-- SLIDER -->
+      <div class="section" id="gallerySection">
+        <h3 style="text-align:center;margin:0 0 8px 0">우리의 순간들</h3>
+        <div class="slider" id="slider">
+          <button class="btn prev" id="prevBtn" aria-label="previous">‹</button>
+          <button class="btn next" id="nextBtn" aria-label="next">›</button>
+          <div class="slides" id="slides">
+            <!-- images (5) -->
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200" alt="">
+            <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200" alt="">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200" alt="">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200" alt="">
+            <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1200" alt="">
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- 슬라이드 사진 -->
-    <div class="section">
-        <h2>우리의 순간들</h2>
-        <div class="slider">
-            <button class="slider-btn prev">‹</button>
-            <button class="slider-btn next">›</button>
+      <!-- INFO -->
+      <div class="section" id="infoSection">
+        <h3 style="text-align:center;margin:0 0 8px 0">예식 안내</h3>
+        <div class="info">📅 <b>2025-05-24</b> · ⏰ <b>14:00</b><br>📍 <b>마리아주 웨딩홀 3층</b></div>
+      </div>
 
-            <div class="slides">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800">
-                <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=800">
-                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800">
-                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=800">
-                <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=800">
-            </div>
+      <!-- GUESTBOOK -->
+      <div class="section" id="guestSection">
+        <h3 style="text-align:center;margin:0 0 8px 0">방명록</h3>
+        <div class="guest">
+          <input id="gName" placeholder="이름 (예: 홍길동)">
+          <textarea id="gMsg" rows="3" placeholder="축하 메시지를 남겨주세요"></textarea>
+          <button id="addBtn">등록하기</button>
+
+          <div class="messages" id="messages"></div>
         </div>
+      </div>
+
+      <footer>© 모바일 청첩장</footer>
     </div>
-
-    <!-- 예식 안내 -->
-    <div class="section">
-        <h2>예식 안내</h2>
-        <div class="info-box">
-            📅 <b>2025년 5월 24일 토요일</b><br>
-            ⏰ <b>오후 2시</b><br>
-            📍 <b>마리아주 웨딩홀 3층</b>
-        </div>
-    </div>
-
-    <!-- 방명록 -->
-    <div class="section">
-        <h2>방명록</h2>
-        <div class="guestbook-box">
-            <div class="guestbook">
-                <input id="nameInput" type="text" placeholder="이름" />
-                <textarea id="msgInput" rows="3" placeholder="메시지를 남겨주세요"></textarea>
-                <button onclick="addMessage()">등록하기</button>
-            </div>
-
-            <div class="messages" id="messagesList"></div>
-        </div>
-    </div>
-
-    <footer>© 모바일 청첩장</footer>
+  </div>
 </div>
 
 <script>
-const sections = document.querySelectorAll('.section');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.2 });
-sections.forEach(sec => observer.observe(sec));
+/* ---------- reveal on scroll ---------- */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting) en.target.classList.add('visible');
+  });
+},{threshold:0.18});
+document.querySelectorAll('.section').forEach(s=>revealObserver.observe(s));
 
-let currentIndex = 0;
-const slides = document.querySelector('.slides');
-const totalSlides = slides.children.length;
+/* ---------- slider logic (wrap + touch + busy flag) ---------- */
+const slidesEl = document.getElementById('slides');
+const slideCount = slidesEl.children.length;
+let idx = 0;
+let isAnimating = false;
 
-function showSlide(i) {
-    currentIndex = (i + totalSlides) % totalSlides;
-    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+function updateSlides() {
+  slidesEl.style.transform = `translateX(-${idx * 100}%)`;
+}
+document.getElementById('prevBtn').addEventListener('click', ()=> {
+  if(isAnimating) return;
+  isAnimating = true;
+  idx = (idx - 1 + slideCount) % slideCount;
+  updateSlides();
+  setTimeout(()=> isAnimating=false, 480);
+});
+document.getElementById('nextBtn').addEventListener('click', ()=> {
+  if(isAnimating) return;
+  isAnimating = true;
+  idx = (idx + 1) % slideCount;
+  updateSlides();
+  setTimeout(()=> isAnimating=false, 480);
+});
+
+/* touch swipe */
+let startX = 0, deltaX = 0, touching = false;
+slidesEl.addEventListener('touchstart', (e)=>{
+  if(e.touches.length>1) return;
+  startX = e.touches[0].clientX;
+  touching = true;
+  slidesEl.style.transition = 'none';
+});
+slidesEl.addEventListener('touchmove', (e)=>{
+  if(!touching) return;
+  deltaX = e.touches[0].clientX - startX;
+  const percent = deltaX / slidesEl.clientWidth * 100;
+  slidesEl.style.transform = `translateX(calc(-${idx * 100}% + ${percent}%))`;
+});
+slidesEl.addEventListener('touchend', (e)=>{
+  touching = false;
+  slidesEl.style.transition = 'transform .45s cubic-bezier(.2,.9,.2,1)';
+  const threshold = slidesEl.clientWidth * 0.18;
+  if(Math.abs(deltaX) > threshold){
+    if(deltaX < 0) idx = (idx + 1) % slideCount;
+    else idx = (idx - 1 + slideCount) % slideCount;
+  }
+  updateSlides();
+  deltaX = 0;
+});
+
+/* allow mouse drag on desktop for convenience */
+let mouseDown = false, mouseStartX=0;
+slidesEl.addEventListener('mousedown', e=>{
+  mouseDown = true; mouseStartX = e.clientX; slidesEl.style.transition='none';
+});
+document.addEventListener('mousemove', e=>{
+  if(!mouseDown) return;
+  const dx = e.clientX - mouseStartX;
+  const percent = dx / slidesEl.clientWidth * 100;
+  slidesEl.style.transform = `translateX(calc(-${idx * 100}% + ${percent}%))`;
+});
+document.addEventListener('mouseup', e=>{
+  if(!mouseDown) return;
+  mouseDown = false; slidesEl.style.transition = 'transform .45s cubic-bezier(.2,.9,.2,1)';
+  const dx = e.clientX - mouseStartX;
+  const threshold = slidesEl.clientWidth * 0.18;
+  if(Math.abs(dx) > threshold){
+    if(dx < 0) idx = (idx + 1) % slideCount;
+    else idx = (idx - 1 + slideCount) % slideCount;
+  }
+  updateSlides();
+});
+
+/*
+  구조:
+    localStorage['guestbook'] = JSON.stringify([{id, name, text, created}...])
+    localStorage['guest_own_ids'] = JSON.stringify([id, id, ...])  // 이 브라우저가 작성한 메시지 id들 - 삭제 권한 판단용
+*/
+const MSG_KEY = 'guestbook_v1';
+const OWN_KEY = 'guestbook_own_ids_v1';
+const messagesEl = document.getElementById('messages');
+const addBtn = document.getElementById('addBtn');
+
+function loadMessages(){
+  const raw = localStorage.getItem(MSG_KEY);
+  const arr = raw ? JSON.parse(raw) : [];
+  // sort by created ascending
+  arr.sort((a,b)=>a.created - b.created);
+  const ownRaw = localStorage.getItem(OWN_KEY);
+  const ownIds = ownRaw ? JSON.parse(ownRaw) : [];
+
+  messagesEl.innerHTML = arr.map(m=>{
+    const canDel = ownIds.includes(m.id);
+    return `
+      <div class="msg" data-id="${m.id}">
+        <div class="meta"><strong>${escapeHtml(m.name)}</strong> · <span style="color:#999;font-size:12px">${new Date(m.created).toLocaleString()}</span></div>
+        <div class="text">${escapeHtml(m.text)}</div>
+        ${canDel ? `<button class="del-btn" data-id="${m.id}">삭제</button>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  // attach delete handlers
+  document.querySelectorAll('.del-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-id');
+      if(!confirm('정말 삭제하시겠어요? 이 동작은 되돌릴 수 없습니다.')) return;
+      deleteMessage(id);
+    });
+  });
 }
 
-document.querySelector('.prev').onclick = () => showSlide(currentIndex - 1);
-document.querySelector('.next').onclick = () => showSlide(currentIndex + 1);
+function saveMessages(arr){
+  localStorage.setItem(MSG_KEY, JSON.stringify(arr));
+  loadMessages();
+}
+function addMessage(){
+  const name = document.getElementById('gName').value.trim();
+  const text = document.getElementById('gMsg').value.trim();
+  if(!name || !text){ alert('이름과 메시지를 입력해주세요.'); return; }
+  const id = Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+  const created = Date.now();
+  const raw = localStorage.getItem(MSG_KEY);
+  const arr = raw ? JSON.parse(raw) : [];
+  arr.push({id,name,text,created});
+  saveMessages(arr);
+  // record ownership for delete
+  const ownRaw = localStorage.getItem(OWN_KEY);
+  const ownArr = ownRaw ? JSON.parse(ownRaw) : [];
+  ownArr.push(id);
+  localStorage.setItem(OWN_KEY, JSON.stringify(ownArr));
 
-const messagesList = document.getElementById('messagesList');
-
-function loadMessages() {
-    const saved = JSON.parse(localStorage.getItem('guestbook') || "[]");
-    messagesList.innerHTML = saved.map(m => `
-        <div class="message">
-            <strong>${m.name}</strong><br>
-            ${m.text}
-        </div>
-    `).join('');
+  // clear inputs
+  document.getElementById('gName').value=''; document.getElementById('gMsg').value='';
+  // scroll to bottom of messages
+  setTimeout(()=> { const last = messagesEl.lastElementChild; if(last) last.scrollIntoView({behavior:'smooth', block:'center'}); }, 60);
 }
 
-function addMessage() {
-    const name = document.getElementById("nameInput").value.trim();
-    const text = document.getElementById("msgInput").value.trim();
-    if (!name || !text) return alert("이름과 메시지를 입력해주세요!");
-
-    const saved = JSON.parse(localStorage.getItem('guestbook') || "[]");
-    saved.push({ name, text });
-    localStorage.setItem('guestbook', JSON.stringify(saved));
-
-    document.getElementById("nameInput").value = "";
-    document.getElementById("msgInput").value = "";
-
-    loadMessages();
+function deleteMessage(id){
+  const raw = localStorage.getItem(MSG_KEY);
+  const arr = raw ? JSON.parse(raw) : [];
+  const newArr = arr.filter(m=>m.id !== id);
+  saveMessages(newArr);
+  // also remove from own ids if present
+  const ownRaw = localStorage.getItem(OWN_KEY);
+  if(ownRaw){
+    let ownArr = JSON.parse(ownRaw);
+    ownArr = ownArr.filter(x=>x !== id);
+    localStorage.setItem(OWN_KEY, JSON.stringify(ownArr));
+  }
 }
+
+addBtn.addEventListener('click', addMessage);
 loadMessages();
-</script>
 
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(m){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+  });
+}
+
+window.addEventListener('load', ()=>{ updateSlides(); loadMessages(); });
+
+*/ 
+</script>
 </body>
 </html>
