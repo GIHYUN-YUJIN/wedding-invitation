@@ -1,239 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>청첩장 — 신랑 ♥ 신부</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>모바일 청첩장</title>
+
 <style>
-  :root{--bg:#faf8f5;--accent:#2b2b2b;--muted:#7a7a7a;--card:#fff}
-  *{box-sizing:border-box}
-  body{margin:0;font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto; background:var(--bg); color:var(--accent); -webkit-font-smoothing:antialiased;}
-  header{min-height:56vh;display:flex;align-items:center;justify-content:center;padding:28px;background-image:linear-gradient(rgba(255,255,255,0.65),rgba(255,255,255,0.65)),url('hero.jpg');background-size:cover;background-position:center;}
-  .hero-card{background:rgba(255,255,255,0.8);padding:18px;border-radius:14px;text-align:center;max-width:720px;width:100%;}
-  .names{font-size:1.6rem;font-weight:700;letter-spacing:0.02em;}
-  .date{margin-top:6px;color:var(--muted);font-size:0.95rem;}
-  main{padding:18px;max-width:720px;margin:0 auto;}
-  section{background:var(--card);border-radius:12px;padding:14px;margin-bottom:14px;box-shadow:0 6px 18px rgba(11,11,11,0.04);}
-  h2{margin:0 0 8px 0;font-size:1rem}
-  p.lead{margin:0;color:var(--muted);line-height:1.5}
-  .info-row{display:flex;justify-content:space-between;gap:12px;align-items:center;}
-  .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#111;color:#fff;text-decoration:none;font-weight:600}
-  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-  .gallery img{width:100%;display:block;border-radius:8px;height:80px;object-fit:cover}
-  .map-links{display:flex;gap:8px;flex-wrap:wrap}
-  .bank{font-family:monospace;background:#f7f7f7;padding:8px;border-radius:8px}
-  .copy-btn{margin-left:8px;padding:6px 8px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer}
-  footer{padding:20px;text-align:center;color:var(--muted);font-size:0.85rem}
-  /* responsive */
-  @media(min-width:600px){ .gallery img{height:120px} header{min-height:40vh} .names{font-size:2rem} }
-  /* RSVP floating button */
-  .rsvp-fab{position:fixed;right:16px;bottom:16px;z-index:40;}
-  .rsvp-fab button{background:#e76f51;border:none;padding:14px 18px;border-radius:999px;color:white;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,0.15);cursor:pointer}
-  /* simple modal */
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;padding:20px}
-  .modal .card{background:white;padding:18px;border-radius:12px;width:100%;max-width:420px}
-  .close{float:right;background:#eee;border-radius:8px;padding:6px 8px;border:none;cursor:pointer}
-  .countdown{font-weight:700;font-size:1.05rem}
-</style>
-</head>
-<body>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Pretendard", sans-serif;
+        background: #f5f5f5; /* 밝은 회색 */
+        color: #333;
+        line-height: 1.6;
+    }
 
-<!-- header/hero -->
-<header>
-  <div class="hero-card" role="banner">
-    <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-direction:column">
-      <div class="names" id="names">신랑 이름 ♥ 신부 이름</div>
-      <div class="date" id="date">2025년 12월 20일 토요일 오후 1시</div>
-      <div style="margin-top:10px">
-        <a class="btn" href="#info">초대합니다</a>
-      </div>
-    </div>
-  </div>
-</header>
+    .container {
+        max-width: 480px;
+        margin: 0 auto;
+        padding-bottom: 80px;
+        background: white;
+        box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
 
-<main>
-  <!-- 인사말 -->
-  <section id="greeting">
-    <h2>소중한 분들을 초대합니다.</h2>
-    <p class="lead" id="greetingText">두 사람이 만나 서로의 내일을 약속합니다. 가까이에서 축복해주시면 감사하겠습니다.</p>
-  </section>
+    .hero {
+        text-align: center;
+        padding: 40px 20px;
+    }
 
-  <!-- 소개 -->
-  <section id="info">
-    <h2>예식 안내</h2>
-    <div class="info-row">
-      <div>
-        <div style="font-weight:700" id="venueName">그랜드모먼트 B4 엘라홀</div>
-        <div style="color:var(--muted);font-size:0.95rem" id="venueAddr">부산광역시 남구 황령대로 401-9</div>
-      </div>
-      <div style="text-align:right">
-        <div class="countdown" id="countdown">D-??</div>
-        <div style="color:var(--muted);font-size:0.85rem">참석여부를 알려주세요</div>
-      </div>
-    </div>
-    <div style="margin-top:12px">
-      <a class="btn" id="openMap" href="#" target="_blank">길찾기</a>
-      <a class="btn" id="openRSVP" style="background:#2b6cb0">참석여부 전달</a>
-    </div>
-  </section>
+    .hero img {
+        width: 80%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-  <!-- 갤러리 -->
-  <section id="gallerySec">
-    <h2>갤러리</h2>
-    <div class="gallery" id="gallery">
-      <!-- replace src with your photos -->
-      <img src="photo1.jpg" alt="photo1">
-      <img src="photo2.jpg" alt="photo2">
-      <img src="photo3.jpg" alt="photo3">
-      <img src="photo4.jpg" alt="photo4">
-      <img src="photo5.jpg" alt="photo5">
-      <img src="photo6.jpg" alt="photo6">
-    </div>
-    <div style="margin-top:10px;text-align:center">
-      <a class="btn" href="#gallerySec">사진 더보기</a>
-    </div>
-  </section>
+    .title {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 26px;
+        font-weight: 700;
+    }
+    .subtitle {
+        text-align: center;
+        font-size: 16px;
+        opacity: 0.7;
+        margin-top: 5px;
+    }
 
-  <!-- 계좌 -->
-  <section id="bank">
-    <h2>마음 전하실 곳</h2>
-    <div>
-      <div><strong>신랑</strong></div>
-      <div class="bank" id="bankA">부산은행 112-2154-870605 전효승 <button class="copy-btn" data-copy="부산은행 112-2154-870605 전효승">복사</button></div>
-      <div style="height:8px"></div>
-      <div><strong>신부</strong></div>
-      <div class="bank" id="bankB">농협 312-0089-3141-11 이명은 <button class="copy-btn" data-copy="농협 312-0089-3141-11 이명은">복사</button></div>
-    </div>
-  </section>
+    section {
+        padding: 20px;
+        margin-top: 20px;
+    }
 
-  <!-- 오시는 길: map links -->
-  <section id="maps">
-    <h2>오시는 길</h2>
-    <div class="map-links">
-      <a class="btn" id="kakaoLink" href="#" target="_blank">카카오내비</a>
-      <a class="btn" id="naverLink" href="#" target="_blank">네이버지도</a>
-      <a class="btn" id="tmapLink" href="#" target="_blank">티맵</a>
-    </div>
-    <div style="margin-top:8px;color:var(--muted);font-size:0.95rem">지하철·셔틀·주차 안내 등 추가 정보</div>
-  </section>
-
-  <!-- 방명록 (예시: 링크로 연결) -->
-  <section id="guestbook">
-    <h2>방명록</h2>
-    <p class="lead">방명록을 통해 축하 메시지를 남겨주세요.</p>
-    <div style="margin-top:10px">
-      <a class="btn" href="#guestbook">방명록 작성</a>
-    </div>
-  </section>
-
-</main>
-
-<!-- RSVP floating -->
-<div class="rsvp-fab">
-  <button id="rsvpBtn">참석 여부</button>
-</div>
-
-<!-- RSVP modal -->
-<div class="modal" id="modal">
-  <div class="card">
-    <button class="close" id="closeModal">X</button>
-    <h3>참석 여부 전달</h3>
-    <p>참석 가능/불가에 체크하고 메시지를 남겨주세요.</p>
-    <form id="rsvpForm">
-      <div style="margin:8px 0">
-        <label><input type="radio" name="attend" value="yes" checked> 참석합니다</label><br>
-        <label><input type="radio" name="attend" value="no"> 불참합니다</label>
-      </div>
-      <div>
-        <textarea name="note" placeholder="한마디 축하 메세지" style="width:100%;height:80px;border-radius:8px;padding:8px"></textarea>
-      </div>
-      <div style="margin-top:10px;text-align:right">
-        <button class="btn" type="submit">전송</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<footer>
-  © Your Wedding — 모바일 청첩장
-</footer>
-
-<script>
-const CONFIG = {
-  groom: "이기현",
-  bride: "박유진",
-  dateISO: "2026-03-28T13:00:00+09:00", // yyyy-mm-ddThh:mm:ss±TZ
-  venueName: "그랜드모먼트 B4 엘라홀",
-  venueAddr: "부산광역시 남구 황령대로 401-9",
-  heroImage: "hero.jpg", // 메인 배경 이미지 파일명
-  gallery: ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"],
-  kakaoQuery: "그랜드모먼트 B4 엘라홀 부산", // 카카오/네이버용 검색문구
-  bankGroom: "계좌번호",
-  bankBride: "계좌번호"
-};
-/* ======================================== */
-
-document.getElementById('names').textContent = CONFIG.groom + " ♥ " + CONFIG.bride;
-document.getElementById('date').textContent = new Date(CONFIG.dateISO).toLocaleString('ko-KR', {dateStyle:'long', timeStyle:'short'});
-document.getElementById('venueName').textContent = CONFIG.venueName;
-document.getElementById('venueAddr').textContent = CONFIG.venueAddr;
-document.querySelector('header').style.backgroundImage = `linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('${CONFIG.heroImage}')`;
-
-/* gallery */
-const gal = document.getElementById('gallery');
-gal.innerHTML = CONFIG.gallery.map(src=>`<img src="${src}" alt="">`).join('');
-
-/* map links (simple search links) */
-const kakao = `https://map.kakao.com/search/${encodeURIComponent(CONFIG.kakaoQuery)}`;
-const naver = `https://map.naver.com/v5/search/${encodeURIComponent(CONFIG.kakaoQuery)}`;
-const tmap = `https://apis.openapi.sk.com/tmap/pois?version=1&searchKeyword=${encodeURIComponent(CONFIG.kakaoQuery)}`;
-document.getElementById('kakaoLink').href = kakao;
-document.getElementById('naverLink').href = naver;
-document.getElementById('tmapLink').href = tmap;
-
-/* bank text */
-document.getElementById('bankA').firstChild && (document.getElementById('bankA').innerHTML = CONFIG.bankGroom + ' <button class="copy-btn" data-copy="'+CONFIG.bankGroom+'">복사</button>');
-document.getElementById('bankB').firstChild && (document.getElementById('bankB').innerHTML = CONFIG.bankBride + ' <button class="copy-btn" data-copy="'+CONFIG.bankBride+'">복사</button>');
-
-/* copy buttons */
-document.addEventListener('click', e=>{
-  if(e.target.matches('.copy-btn')){
-    const text = e.target.getAttribute('data-copy');
-    navigator.clipboard?.writeText(text).then(()=>{
-      e.target.textContent = '복사됨';
-      setTimeout(()=> e.target.textContent = '복사',1200);
-    }).catch(()=> alert('복사 실패 — 수동으로 복사해주세요.'));
-  }
-});
-
-/* RSVP modal */
-const modal = document.getElementById('modal');
-document.getElementById('rsvpBtn').addEventListener('click', ()=> modal.style.display = 'flex');
-document.getElementById('openRSVP').addEventListener('click', ()=> modal.style.display = 'flex');
-document.getElementById('closeModal').addEventListener('click', ()=> modal.style.display = 'none');
-document.getElementById('rsvpForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  // 여기에서 AJAX로 서버에 전송하거나 카카오톡 링크로 보내도록 변경 가능
-  alert('참석 여부가 전달되었습니다. 감사합니다!');
-  modal.style.display = 'none';
-});
-
-/* countdown */
-function updateCountdown(){
-  const target = new Date(CONFIG.dateISO);
-  const now = new Date();
-  const diff = target - now;
-  const el = document.getElementById('countdown');
-  if(diff<=0){ el.textContent = '오늘입니다.'; return; }
-  const days = Math.floor(diff/86400000);
-  const hrs = Math.floor((diff%86400000)/3600000);
-  el.textContent = `D-${days} ${hrs}시간`;
-}
-updateCountdown();
-setInterval(updateCountdown, 60*1000);
-
-/* prevent modal click-through */
-modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none' });
-</script>
-</body>
-</html>
+    h2 {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
