@@ -194,6 +194,7 @@ document.addEventListener('mouseup', e=>{
   updateSlides();
 });
 
+/* ---------- guestbook (localStorage) ---------- */
 /*
   구조:
     localStorage['guestbook'] = JSON.stringify([{id, name, text, created}...])
@@ -276,14 +277,31 @@ function deleteMessage(id){
 addBtn.addEventListener('click', addMessage);
 loadMessages();
 
+/* ---------- util escape ---------- */
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, function(m){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
   });
 }
 
+/* ---------- initial layout adjustments ---------- */
 window.addEventListener('load', ()=>{ updateSlides(); loadMessages(); });
 
+/* ---------- NOTE about cross-device sync ----------
+localStorage는 브라우저(및 기기)별로 저장됩니다. 
+따라서 "모바일에서 쓴 방명록이 데스크탑에서 바로 보이게" 하려면
+원격 저장소(서버)가 필요합니다. 간단한 대안은 아래 두 가지입니다:
+
+1) Google Forms + Google Sheets (간단) :
+   - Google Form을 만들어 제출하면 모든 기기에서 동일한 시트에 기록됩니다.
+   - 단, 방명록을 '삭제'하려면 별도 관리(시트 편집)가 필요.
+
+2) Firebase Realtime Database / Firestore (실시간 동기화) :
+   - 무료 티어로도 사용 가능(간단한 설정 필요).
+   - 실시간 읽기/쓰기 및 삭제 권한 제어 가능.
+   - 아래는 간단한 연결 흐름(요약) — 원하면 Firebase 예제 코드로 통합해드릴게요.
+
+원격 동기화를 원하면 어떤 방식을 선호하는지 알려줘요.
 */ 
 </script>
 </body>
